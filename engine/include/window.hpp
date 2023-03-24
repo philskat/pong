@@ -32,6 +32,8 @@ public:
   void setTitle(const char* title);
   const char* getTitle() const;
 
+  GLFWwindow* getWindow() const;
+
 private:
   void updateWindowSize();
 };

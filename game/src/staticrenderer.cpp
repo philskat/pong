@@ -1,14 +1,13 @@
 #include "staticrenderer.hpp"
 
-StaticRenderer::StaticRenderer(Window& window, Camera& camera)
-  : Renderer(window, camera)
+StaticRenderer::StaticRenderer(Camera& camera)
+  : Renderer(camera)
 {
   m_Shader = new StaticShader();
 }
 
 void StaticRenderer::render()
 {
-  glClear(GL_COLOR_BUFFER_BIT);
   m_Shader->start();
 
   m_Shader->setViewMatrix(m_Camera);
@@ -17,7 +16,7 @@ void StaticRenderer::render()
   {
     Model* model = entity->getModel();
 
-    m_Shader->setTransformationMatrix(entity->getPosition());
+    m_Shader->setTransformationMatrix(*entity);
 
     glBindVertexArray(model->getVao());
 
@@ -27,5 +26,4 @@ void StaticRenderer::render()
   }
 
   m_Shader->stop();
-  swapBuffers();
 }

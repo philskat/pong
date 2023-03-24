@@ -13,6 +13,7 @@ Libraries used in this project
 - [GLFW](https://github.com/glfw/glfw) - Windows and Input
 - [GLEW](https://github.com/nigels-com/glew) - OpenGL Extensions (Use of [Perlmint/glew-cmake](https://github.com/Perlmint/glew-cmake) for CMake support)
 - [GLM](https://github.com/g-trunc/glm) - OpenGL Maths (Vectors, Matrix...)
+- [ImGui](https://github.com/ocornut/imgui) - Used for debug menu
 
 
 ## Run Locally
@@ -53,3 +54,15 @@ The executable will be located in `build/game` exact placement depends on the bu
 Visual Studio places the output under `build/game/Debug` \
 Make will put the output in `build/game`
 
+## Debug tools
+To enable Debug tools with [ImGui](https://github.com/ocornut/imgui) you can run the following command to setup the workspace
+
+```bash
+  cmake -S . -B build -DPONGGAME_DEBUG=ON
+```
+
+Alternativly you can just change the variable in the `build/CMakeCache.txt` file. Just replace `OFF` in the following line with `ON`.
+
+```
+  PONGGAME_DEBUG:BOOL=OFF
+```

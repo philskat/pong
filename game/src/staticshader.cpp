@@ -13,9 +13,17 @@ StaticShader::StaticShader()
 	stop();
 }
 
-void StaticShader::setTransformationMatrix(glm::vec2 position)
+void StaticShader::setTransformationMatrix(const Entity& entity)
 {
-	setUniformMatrix4(m_UniformModelMatrix, glm::translate(glm::mat4(1.0f), glm::vec3(position, 0.0f)));
+	glm::mat4 transform(1.0f);
+
+	transform = glm::translate(transform, glm::vec3(entity.getPosition(), 0.0f));
+
+	transform = glm::rotate(transform, glm::radians(entity.getRotation()), glm::vec3(0.0f, 0.0f, 1.0f));
+
+	transform = glm::scale(transform, glm::vec3(entity.getScale(), 1.0f));
+
+	setUniformMatrix4(m_UniformModelMatrix, transform);
 }
 
 void StaticShader::setViewMatrix(const Camera& camera)

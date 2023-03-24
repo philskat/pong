@@ -11,7 +11,7 @@ private:
   StaticShader* m_Shader;
 
 public:
-  StaticRenderer(Window& window, Camera& camera);
+  StaticRenderer(Camera& camera);
 
   virtual void render() override;
 };
