@@ -55,6 +55,42 @@ if(PONGGAME_DEBUG)
 	)
 	
 	FetchContent_MakeAvailable(imgui)
+
+	add_custom_command(
+		OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/imgui/include/imconfig.h
+		       ${CMAKE_CURRENT_BINARY_DIR}/imgui/include/imgui.h
+		       ${CMAKE_CURRENT_BINARY_DIR}/imgui/include/imgui_internal.h
+			   ${CMAKE_CURRENT_BINARY_DIR}/imgui/include/backends/imgui_impl_glfw.h
+			   ${CMAKE_CURRENT_BINARY_DIR}/imgui/include/backends/imgui_impl_opengl3.h
+		COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_CURRENT_BINARY_DIR}/imgui/include/backends
+		COMMAND ${CMAKE_COMMAND} -E copy ${imgui_SOURCE_DIR}/imconfig.h ${CMAKE_CURRENT_BINARY_DIR}/imgui/include
+		COMMAND ${CMAKE_COMMAND} -E copy ${imgui_SOURCE_DIR}/imgui.h ${CMAKE_CURRENT_BINARY_DIR}/imgui/include
+		COMMAND ${CMAKE_COMMAND} -E copy ${imgui_SOURCE_DIR}/imgui_internal.h ${CMAKE_CURRENT_BINARY_DIR}/imgui/include
+		COMMAND ${CMAKE_COMMAND} -E copy ${imgui_SOURCE_DIR}/backends/imgui_impl_glfw.h ${CMAKE_CURRENT_BINARY_DIR}/imgui/include/backends
+		COMMAND ${CMAKE_COMMAND} -E copy ${imgui_SOURCE_DIR}/backends/imgui_impl_opengl3.h ${CMAKE_CURRENT_BINARY_DIR}/imgui/include/backends
+		DEPENDS ${imgui_SOURCE_DIR}/imconfig.h
+		        ${imgui_SOURCE_DIR}/imgui.h
+		        ${imgui_SOURCE_DIR}/imgui_internal.h
+				${imgui_SOURCE_DIR}/backends/imgui_impl_glfw.h
+				${imgui_SOURCE_DIR}/backends/imgui_impl_opengl3.h
+	)
+
+	add_library(imgui STATIC 
+		${imgui_SOURCE_DIR}/imgui.cpp
+		${imgui_SOURCE_DIR}/imgui_demo.cpp
+		${imgui_SOURCE_DIR}/imgui_draw.cpp
+		${imgui_SOURCE_DIR}/imgui_tables.cpp
+		${imgui_SOURCE_DIR}/imgui_widgets.cpp
+		${imgui_SOURCE_DIR}/backends/imgui_impl_glfw.cpp
+		${imgui_SOURCE_DIR}/backends/imgui_impl_opengl3.cpp
+		${CMAKE_CURRENT_BINARY_DIR}/imgui/include/imconfig.h
+		${CMAKE_CURRENT_BINARY_DIR}/imgui/include/imgui.h
+		${CMAKE_CURRENT_BINARY_DIR}/imgui/include/imgui_internal.h
+		${CMAKE_CURRENT_BINARY_DIR}/imgui/include/backends/imgui_impl_glfw.h
+		${CMAKE_CURRENT_BINARY_DIR}/imgui/include/backends/imgui_impl_opengl3.h
+	)
+	target_include_directories(imgui PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/imgui/include)
+	target_link_libraries(imgui PUBLIC glfw)
 endif()
 
 FetchContent_MakeAvailable(glfw glew glm)
