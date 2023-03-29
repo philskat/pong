@@ -85,6 +85,11 @@ const char* Window::getTitle() const
   return m_Title;
 }
 
+GLFWwindow* Window::getWindow() const
+{
+  return m_Window;
+}
+
 void Window::updateWindowSize()
 {
   glfwSetWindowSize(m_Window, m_Width, m_Height);

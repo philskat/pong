@@ -13,7 +13,7 @@ private:
 public:
 	StaticShader();
 
-	void setTransformationMatrix(glm::vec2 position);
+	void setTransformationMatrix(const Entity& entity);
 
 	void setViewMatrix(const Camera& camera);
 };
