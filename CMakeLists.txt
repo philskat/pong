@@ -4,6 +4,7 @@ Project(PongGame)
 set(CXX_STANDARD 20)
 
 option(PONGGAME_DEBUG "Enable Debug features of the game" OFF)
+option(PONGGAME_BUILD_DOCS "Build docs for engine" OFF)
 
 # Dependencies
 include(FetchContent)
