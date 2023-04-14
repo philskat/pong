@@ -4,20 +4,23 @@
 #include <gl/glew.h>
 #include <GLFW/glfw3.h>
 
+#include <memory>
+
 class Window
 {
 private:
   GLFWwindow* m_Window;
 
-  unsigned int m_Width, m_Height;
+  int m_Width, m_Height;
 
   const char* m_Title;
 
 public:
-  Window(unsigned int width, unsigned int height, const char* title);
   virtual ~Window();
   Window(const Window&) = delete;
   Window operator=(const Window&) = delete;
+
+  static std::unique_ptr<Window> createWindow(unsigned int width, unsigned int height, const char* title);
 
   bool isOpen() const;
 
@@ -35,6 +38,8 @@ public:
   GLFWwindow* getWindow() const;
 
 private:
+  Window(GLFWwindow* window);
+
   void updateWindowSize();
 };
 

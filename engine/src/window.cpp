@@ -1,29 +1,15 @@
 #include "window.hpp"
 #include "resourcemanager.hpp"
 
-Window::Window(unsigned int width, unsigned int height, const char* title)
-  : m_Width(width), m_Height(height), m_Title(title)
+Window::Window(GLFWwindow* window)
 {
-  if (!glfwInit())
-  {
-    throw "Could not init GLFW";
-  }
+  m_Window = window;
 
-  m_Window = glfwCreateWindow(m_Width, m_Height, m_Title, NULL, NULL);
-  if (!m_Window)
-  {
-    glfwTerminate();
-    throw "Could not create window";
-  }
+  m_Width = 0;
+  m_Height = 0;
+  m_Title = nullptr;
 
-  glfwMakeContextCurrent(m_Window);
-
-  if (glewInit() != GLEW_OK)
-  {
-    glfwDestroyWindow(m_Window);
-    glfwTerminate();
-    throw "Could not init GLEW";
-  }
+  glfwGetWindowSize(m_Window, &m_Width, &m_Height);
 }
 
 Window::~Window()
@@ -31,11 +17,27 @@ Window::~Window()
   if (m_Window)
   {
     glfwDestroyWindow(m_Window);
-
-    ResourceManager::getInstance().cleanUp();
-
-    glfwTerminate();
   }
+}
+
+std::unique_ptr<Window> Window::createWindow(unsigned int width, unsigned int height, const char* title)
+{
+  GLFWwindow* window = glfwCreateWindow(width, height, title, NULL, NULL);
+
+  if (!window)
+  {
+    return std::unique_ptr<Window>(nullptr);
+  }
+
+  glfwMakeContextCurrent(window);
+
+  if (glewInit() != GLEW_OK)
+  {
+    glfwDestroyWindow(window);
+    return std::unique_ptr<Window>(nullptr);
+  }
+
+  return std::unique_ptr<Window>(new Window(window));
 }
 
 bool Window::isOpen() const

@@ -2,6 +2,8 @@ project(Pong VERSION 0.0.1)
 
 set(GAME_SOURCES
 	src/main.cpp
+	src/pongapp.cpp
+	src/pongapp.hpp
 	src/staticrenderer.cpp
 	src/staticrenderer.hpp
 	src/staticshader.cpp

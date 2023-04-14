@@ -10,7 +10,7 @@ class Renderer
 {
 protected:
   Camera& m_Camera;
-  std::vector<Entity*> m_Entities;
+  std::vector<std::weak_ptr<Entity>> m_Entities;
 
 public:
   Renderer(Camera& camera);
@@ -19,7 +19,7 @@ public:
 
   virtual void render() = 0;
 
-  void addEntity(Entity* entity);
+  void addEntity(std::weak_ptr<Entity> entity);
 };
 
 #endif

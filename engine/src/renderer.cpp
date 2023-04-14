@@ -5,7 +5,7 @@ Renderer::Renderer(Camera& camera)
 {
 }
 
-void Renderer::addEntity(Entity* entity)
+void Renderer::addEntity(std::weak_ptr<Entity> entity)
 {
   m_Entities.push_back(entity);
 }

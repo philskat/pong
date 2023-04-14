@@ -1,0 +1,21 @@
+#ifndef APPLICATION_HPP
+#define APPLICATION_HPP
+
+class Application
+{
+public:
+  Application();
+  Application(const Application& other) = delete;
+  virtual ~Application();
+
+  Application operator=(const Application&) = delete;
+
+  virtual void onUpdate() = 0;
+  virtual void onRender() = 0;
+
+  virtual bool isRunning() = 0;
+
+  void update();
+};
+
+#endif

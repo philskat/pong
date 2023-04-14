@@ -12,8 +12,15 @@ void StaticRenderer::render()
 
   m_Shader->setViewMatrix(m_Camera);
 
-  for (Entity* entity : m_Entities)
+  for (auto weakEntity : m_Entities)
   {
+    if (weakEntity.expired())
+    {
+      continue;
+    }
+
+    std::shared_ptr<Entity> entity = weakEntity.lock();
+
     Model* model = entity->getModel();
 
     m_Shader->setTransformationMatrix(*entity);
