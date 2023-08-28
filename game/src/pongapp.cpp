@@ -51,9 +51,11 @@ PongApp::PongApp()
 
 PongApp::~PongApp()
 {
+#ifdef PONGGAME_DEBUG
   ImGui_ImplOpenGL3_Shutdown();
   ImGui_ImplGlfw_Shutdown();
   ImGui::DestroyContext();
+#endif 
 }
 
 void PongApp::onUpdate()

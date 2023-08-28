@@ -8,8 +8,6 @@ public:
   Application(const Application& other) = delete;
   virtual ~Application();
 
-  Application operator=(const Application&) = delete;
-
   virtual void onUpdate() = 0;
   virtual void onRender() = 0;
 

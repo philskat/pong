@@ -15,7 +15,6 @@ protected:
 public:
   Renderer(Camera& camera);
   Renderer(const Renderer&) = delete;
-  Renderer operator=(const Renderer&) = delete;
 
   virtual void render() = 0;
 

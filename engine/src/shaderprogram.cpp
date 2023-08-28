@@ -89,6 +89,11 @@ GLuint ShaderProgram::loadShader(GLenum type, const char* path)
 {
   FILE* f = fopen(path, "rt");
 
+  if (f == nullptr)
+  {
+    throw "Could not open file";
+  }
+
   fseek(f, 0, SEEK_END);
   GLint length = ftell(f);
   fseek(f, 0, SEEK_SET);
